@@ -1,8 +1,8 @@
 #### Install prereqs
 
 pip install django
-pip install channels
 
+pip install channels
 
 wget http://download.redis.io/redis-stable.tar.gz
 
