@@ -1,0 +1,38 @@
+{% block script %}
+  <script>
+    var socket = new WebSocket('ws://' + window.location.host);
+
+    socket.onopen = function open() {
+      console.log('WebSockets connection created.');
+    };
+
+    if (socket.readyState == WebSocket.OPEN) {
+      socket.onopen();
+    }
+  </script>
+{% endblock script %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Sensor Example{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+    {% load staticfiles%}
+  <div class="section">
+    <div class="container">
+          <h1>Sensor Reading</h1>
+
+        <p>
+          <div id="sensor">Sensor Reading: {{ reading }}</div>
+        </p>
+
+    </div>
+  </div>
+  <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src='{% static "ir.js" %}'></script>
+</body>
+</html>
