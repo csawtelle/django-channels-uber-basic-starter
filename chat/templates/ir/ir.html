@@ -5,14 +5,110 @@
 		<title>{% block title %}Sensor Example{% endblock %}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	  {% load staticfiles%}
-    <link rel="stylesheet" href="{% static 'css/chat.html' %}">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
-    <p>Hello {{username}}</p>
-		<div class="container">
-	    <div id="sensor">Sensor Reading: {{ reading }}</div>
-		</div>
-    <input type="text" id="sendMsg" onkeydown="if (event.keyCode == 13) {send(this.value); this.value='';}"/>
+    {% for data in chatdata %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card card-block">
+                <div class="card-title">
+                    <i class="fa fa-comments-o" aria-hidden="true"></i>Chat
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
+                            </span>Refresh</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
+                            </span>Available</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
+                            </span>Busy</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
+                                Away</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
+                                Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="chat">
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong> 
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <small class="pull-right text-muted">12 mins ago</small>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i><small>13 mins ago</small>
+                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      <div class="container">
+        <div class="card__outer">
+          <p>Hello {{username}}</p>
+ 
+          You are chatting with:
+          <input 
+            type="text" 
+            id="recipients" 
+            value={{data.participants|safe}}
+          />
+          <div class="card__inner">
+            {% for message in data.messages %}
+              <p>{{message}}<p>
+            {% endfor %}
+            <div id="sensor"></div>
+            <input 
+              type="text" 
+              id="sendMsg" 
+              onkeydown="if (event.keyCode == 13) {send(this.value); this.value='';}"
+            />
+          </div>
+        </div>
+      </div>
+    {% endfor %}
 		<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 	</body>
 </html>
@@ -31,8 +127,8 @@
       url: url,
       type: "POST",
       data: {
-        'producer': 'user1',
-        'consumer': {{recipients|safe}},
+        'producer': "{{request.user.username}}",
+        'consumer': document.getElementById('recipients').value,
         'message': input,
         'csrfmiddlewaretoken': '{{csrf_token}}'
       }
@@ -47,20 +143,13 @@
   }
 
   $(function() {
-    console.log("Javascript is working")
     // When we're using HTTPS, use WSS too.
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     var chatsock = new WebSocket(ws_scheme + '://' + window.location.host);
 
-    chatsock.onopen = function() {
-      console.log("Connected!");
-      $('#sensor').text("Connected!");
-      chatsock.send("Connected!");
-    };
+    chatsock.onopen = function() {};
 
     chatsock.onmessage = function(message) {
-      console.log("Received Sock message!");
-      console.log(message);
       $('#sensor').append("<p>"+strip(message.data)+"</p>");
     };
   });
