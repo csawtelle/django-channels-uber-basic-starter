@@ -7,11 +7,11 @@ class MessageAdmin(admin.ModelAdmin):
 
 class ConversationAdmin(admin.ModelAdmin):
   list_filter = ('participants',)
-  list_display = ('participants', 'archived')
+  list_display = ('participants','archived',)
 
 class ContactsAdmin(admin.ModelAdmin):
   list_filter = ('owner',)
-  list_display = ('owner', 'contactList')
+  list_display = ('owner', 'contactList',)
 
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Conversation, ConversationAdmin)

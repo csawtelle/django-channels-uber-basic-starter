@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
+    'rest_framework',
     'channels',
+    'api',
     'chat',
 ]
 
@@ -146,3 +147,4 @@ CHANNEL_LAYERS = {
  "ROUTING": "imageRecognition.routing.channel_routing",
  },
 }
+

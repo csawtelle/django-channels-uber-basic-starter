@@ -6,9 +6,8 @@ import uuid
 class Conversation(models.Model):
   uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   participants = ArrayField(
-    ArrayField(
-      models.TextField(blank=False)
-    )
+    models.TextField(blank=False),
+    default=[]
   )
   archived = models.BooleanField(default=False)
 
@@ -33,7 +32,5 @@ class Contacts(models.Model):
   uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   owner = models.ForeignKey(User)
   contactList = ArrayField(
-    ArrayField(
-      models.TextField(blank=False)
-    )
+    models.TextField(blank=False)
   )
